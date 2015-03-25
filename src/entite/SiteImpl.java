@@ -18,6 +18,10 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	private SiteImpl fils[];
 	private int id;
 	
+	public SiteImpl() throws RemoteException {
+		super();
+	}
+	
 	/**
 	 * Instancie un nouveau site avec un pere et une liste de fils.
 	 * 
@@ -25,8 +29,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 * @param fils les files du Site courant
 	 * @throws RemoteException 
 	 */
-	public SiteImpl(int id, SiteImpl pere) throws RemoteException {
-		super();
+	public void init(int id, SiteImpl pere) throws RemoteException {
 		this.pere = pere;
 		this.id = id;
 		this.fils = new SiteImpl[0];

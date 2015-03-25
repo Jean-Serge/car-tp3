@@ -19,3 +19,7 @@ src/main
 --------
 + Main		: main permettant de tester les classe ci-dessus 
 
+étape 2
+=======
+
+(voir : http://www.jmdoudoux.fr/java/dej/chap-rmi.htm#rmi-2)
