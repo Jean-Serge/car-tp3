@@ -8,9 +8,8 @@ public class SiteImpl implements SiteItf {
 	 * ================================
 	 */
 	
-	
-	private SiteItf pere;
-	private SiteItf fils[];
+	private SiteImpl pere;
+	private SiteImpl fils[];
 	private int id;
 	
 	/**
@@ -19,11 +18,11 @@ public class SiteImpl implements SiteItf {
 	 * @param pere le père du Site courant
 	 * @param fils les files du Site courant
 	 */
-	public SiteImpl(int id, SiteItf pere, SiteItf[] fils) {
+	public SiteImpl(int id, SiteImpl pere) {
 		super();
 		this.pere = pere;
-		this.fils = fils;
 		this.id = id;
+		this.fils = new SiteImpl[0];
 	}
 
 	/*
@@ -40,8 +39,10 @@ public class SiteImpl implements SiteItf {
 	 */
 	@Override
 	public void transfererAuxFils(byte[] donnees) {
-		for(SiteItf s : fils){
+		System.out.println();
+		for(SiteImpl s : fils){
 			System.out.println("Transfert de données de " + id + " à " + s.getId());
+			System.out.println("Données envoyées : \n\"" + new String(donnees) + "\"");
 			s.recevoir(donnees);
 		}
 	}
@@ -67,5 +68,22 @@ public class SiteImpl implements SiteItf {
 		return id;
 	}
 
-	
+	/**
+	 * Permet d'ajouter une Site au tableau de fils du site courant.
+	 * Pour cela, cette fonction réalloue le tableau de fils pour l'augmenter d'une case
+	 * (contenant le nouveau fils).
+	 * 
+	 * @param fils le fils à ajouter au site courant
+	 */
+	@Override
+	public void ajouterFils(SiteItf fils) {
+		SiteImpl tmp[] = new SiteImpl[this.fils.length + 1];
+		
+		for(int i = 0 ; i < this.fils.length ; i++)
+			tmp[i] = this.fils[i];
+		tmp[tmp.length -1] = (SiteImpl) fils;
+		
+		this.fils = tmp;
+	}
+
 }
