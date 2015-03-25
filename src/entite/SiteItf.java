@@ -6,4 +6,5 @@ public interface SiteItf {
 	
 	public void recevoir(byte[] donnees);
 	
+	public int getId();
 }
