@@ -1,10 +1,13 @@
 package entite;
 
-public interface SiteItf {
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface SiteItf extends Remote{
 	
-	public void transfererAuxFils(byte[] donnees);
+	public void transfererAuxFils(byte[] donnees) throws RemoteException;
 	
-	public void recevoir(byte[] donnees);
+	public void recevoir(byte[] donnees) throws RemoteException;
 	
-	public void ajouterFils(SiteItf fils);
+	public void ajouterFils(SiteItf fils) throws RemoteException;
 }

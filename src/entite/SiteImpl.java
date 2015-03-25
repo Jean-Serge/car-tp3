@@ -1,6 +1,9 @@
 package entite;
 
-public class SiteImpl implements SiteItf {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 
 	/*
 	 * ==========================================================================
@@ -8,6 +11,9 @@ public class SiteImpl implements SiteItf {
 	 * ================================
 	 */
 	
+	private static final long serialVersionUID = 7151500616352256347L;
+
+	@SuppressWarnings("unused")
 	private SiteImpl pere;
 	private SiteImpl fils[];
 	private int id;
@@ -17,8 +23,9 @@ public class SiteImpl implements SiteItf {
 	 * 
 	 * @param pere le père du Site courant
 	 * @param fils les files du Site courant
+	 * @throws RemoteException 
 	 */
-	public SiteImpl(int id, SiteImpl pere) {
+	public SiteImpl(int id, SiteImpl pere) throws RemoteException {
 		super();
 		this.pere = pere;
 		this.id = id;
@@ -36,9 +43,10 @@ public class SiteImpl implements SiteItf {
 	 * du site courant.
 	 * 
 	 * @param donnees le message à transmettre aux fils
+	 * @throws RemoteException
 	 */
 	@Override
-	public void transfererAuxFils(byte[] donnees) {
+	public void transfererAuxFils(byte[] donnees) throws RemoteException{
 		System.out.println();
 		for(SiteImpl s : fils){
 			System.out.println("Transfert de données de " + id + " à " + s.getId());
@@ -52,9 +60,10 @@ public class SiteImpl implements SiteItf {
 	 * Permet à un Site de recevoir des données de son père.
 	 * 
 	 * @param donnees les données reçues du père
+	 * @throws RemoteException 
 	 */
 	@Override
-	public void recevoir(byte[] donnees) {
+	public void recevoir(byte[] donnees) throws RemoteException {
 		this.transfererAuxFils(donnees);
 	}
 
@@ -76,7 +85,7 @@ public class SiteImpl implements SiteItf {
 	 * @param fils le fils à ajouter au site courant
 	 */
 	@Override
-	public void ajouterFils(SiteItf fils) {
+	public void ajouterFils(SiteItf fils) throws RemoteException {
 		SiteImpl tmp[] = new SiteImpl[this.fils.length + 1];
 		
 		for(int i = 0 ; i < this.fils.length ; i++)
