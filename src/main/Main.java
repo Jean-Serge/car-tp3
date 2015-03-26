@@ -10,6 +10,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		SiteImpl s1, s2, s3, s4, s5, s6;
 		s1 = s2 = s3 = s4 = s5 = s6 = null;
 
@@ -36,7 +37,6 @@ public class Main {
 
 			s1.transfererAuxFils("Bonjour".getBytes());
 			
-			System.out.println("Je suis ici.");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
