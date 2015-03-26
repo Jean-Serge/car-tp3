@@ -21,6 +21,11 @@ public class ServeurRMI {
 	 */
 	public static void main(String[] args) throws RemoteException,
 			NotBoundException {
+		
+		/*
+		 * Cette classe lance un serveur RMI et y ajoute les objets
+		 * représentant l'arbre du sujet de TP.
+		 */
 		SiteImpl s1, s2, s3, s4, s5, s6;
 		s1 = s2 = s3 = s4 = s5 = s6 = null;
 
