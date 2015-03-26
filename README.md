@@ -42,3 +42,4 @@ TODO
 + Transformer les main RMI en classes à part entières pour accroitre leur possibilité.
 + Tester le programme de base
 + Tester les accès au entités RMI
++ Essayer d'éclater sur différents appels la définition des éléments de l'arbre
