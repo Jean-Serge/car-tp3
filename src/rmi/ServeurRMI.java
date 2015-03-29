@@ -7,7 +7,6 @@ import java.rmi.registry.Registry;
 
 import entite.SiteImpl;
 import entite.SiteItf;
-
 import utils.Tools;
 
 public class ServeurRMI {
@@ -26,7 +25,7 @@ public class ServeurRMI {
 		 * Cette classe lance un serveur RMI et y ajoute les objets
 		 * représentant l'arbre du sujet de TP.
 		 */
-		SiteImpl s1, s2, s3, s4, s5, s6;
+		SiteItf s1, s2, s3, s4, s5, s6;
 		s1 = s2 = s3 = s4 = s5 = s6 = null;
 
 		s1 = new SiteImpl();
@@ -45,25 +44,7 @@ public class ServeurRMI {
 		registre.rebind("s5", s5);
 		registre.rebind("s6", s6);
 
-		s1 = (SiteImpl) ((SiteItf) registre.lookup("s1"));
-		s2 = (SiteImpl) ((SiteItf) registre.lookup("s2"));
-		s3 = (SiteImpl) ((SiteItf) registre.lookup("s3"));
-		s4 = (SiteImpl) ((SiteItf) registre.lookup("s4"));
-		s5 = (SiteImpl) ((SiteItf) registre.lookup("s5"));
-		s6 = (SiteImpl) ((SiteItf) registre.lookup("s6"));
-
-		s1.init(1, null);
-		s2.init(2, s1);
-		s5.init(5, s1);
-		s6.init(6, s5);
-		s3.init(3, s2);
-		s4.init(4, s2);
-
-		s1.ajouterFils(s2);
-		s1.ajouterFils(s5);
-		s2.ajouterFils(s3);
-		s2.ajouterFils(s4);
-		s5.ajouterFils(s6);
+	
 
 	}
 

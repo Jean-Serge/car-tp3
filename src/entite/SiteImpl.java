@@ -14,8 +14,8 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	private static final long serialVersionUID = 7151500616352256347L;
 
 	@SuppressWarnings("unused")
-	private SiteImpl pere;
-	private SiteImpl fils[];
+	private SiteItf pere;
+	private SiteItf fils[];
 	private int id;
 	
 	public SiteImpl() throws RemoteException {
@@ -29,7 +29,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 * @param fils les files du Site courant
 	 * @throws RemoteException 
 	 */
-	public void init(int id, SiteImpl pere) throws RemoteException {
+	public void init(int id, SiteItf pere) throws RemoteException {
 		this.pere = pere;
 		this.id = id;
 		this.fils = new SiteImpl[0];
@@ -51,7 +51,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	@Override
 	public void transfererAuxFils(byte[] donnees) throws RemoteException{
 		System.out.println();
-		for(SiteImpl s : fils){
+		for(SiteItf s : fils){
 			System.out.println("Transfert de données de " + id + " à " + s.getId());
 			System.out.println("Données envoyées : \n\"" + new String(donnees) + "\"");
 			s.recevoir(donnees);
@@ -89,11 +89,11 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 */
 	@Override
 	public void ajouterFils(SiteItf fils) throws RemoteException {
-		SiteImpl tmp[] = new SiteImpl[this.fils.length + 1];
+		SiteItf tmp[] = new SiteItf[this.fils.length + 1];
 		
 		for(int i = 0 ; i < this.fils.length ; i++)
 			tmp[i] = this.fils[i];
-		tmp[tmp.length -1] = (SiteImpl) fils;
+		tmp[tmp.length -1] = fils;
 		
 		this.fils = tmp;
 	}
