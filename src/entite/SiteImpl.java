@@ -52,9 +52,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	public void transfererAuxFils(byte[] donnees) throws RemoteException{
 		System.out.println();
 		for(SiteItf s : fils){
-			System.out.println("Transfert de données de " + id + " à " + s.getId());
-			System.out.println("Données envoyées : \n\"" + new String(donnees) + "\"");
-			s.recevoir(donnees);
+			new TransfertThread(s, donnees).start();
 		}
 	}
 
@@ -67,6 +65,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 */
 	@Override
 	public void recevoir(byte[] donnees) throws RemoteException {
+		System.out.println("Le site n° " + id + " a reçu le message \n\""+ new String(donnees) + "\"\n" );
 		this.transfererAuxFils(donnees);
 	}
 
