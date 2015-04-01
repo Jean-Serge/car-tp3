@@ -3,6 +3,14 @@ package entite;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * Cette classe implémente un Site pour cet exercice.
+ * Un site implémente SiteItf et doit pouvoir envoyer et recevoir
+ * des messages.
+ * 
+ * @author Jean-Serge Monbailly
+ *
+ */
 public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 
 	/*
@@ -65,7 +73,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 */
 	@Override
 	public void recevoir(byte[] donnees) throws RemoteException {
-		System.out.println("Le site n° " + id + " a reçu le message \n\""+ new String(donnees) + "\"\n" );
+		System.out.println("Le site n° " + id + " a reçu le message \n\""+ new String(donnees) + "\"");
 		this.transfererAuxFils(donnees);
 	}
 

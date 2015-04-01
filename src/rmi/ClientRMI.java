@@ -1,69 +1,49 @@
 package rmi;
 
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import entite.SiteImpl;
 import entite.SiteItf;
 import utils.Tools;
 
+/**
+ * Cette classe sert de client au Serveur RMI lancé au préalable.
+ * 
+ * @author Jean-Serge Monbailly
+ */
 public class ClientRMI {
 
 	/**
-	 * Cette classe sert de client au Serveur RMI lancé au préalable.
-	 * 
-	 * @param args
-	 * @throws RemoteException
-	 * @throws NotBoundException
-	 */
-	public static void main(String[] args) throws RemoteException,
-			NotBoundException {
-		/*
-		 * Ce client se connecte au Serveur RMI pour récupérer s1 (la racine de
-		 * l'arbre). Il lui envoie ensuite un message et on peut constater le
-		 * résultat.
-		 */
+	 * Ce client se connecte au Serveur RMI pour récupérer s1 (la racine de
+	 * l'arbre). Il lui envoie ensuite un message et on peut constater le
+	 * résultat.
+	 **/
+	public static void main(String[] args) {
+		SiteItf s1;
+		Registry registre;
 
-		SiteItf s1, s2, s3, s4, s5, s6;
-		Registry registre = LocateRegistry.getRegistry(Tools.PORT_RMI_SERVEUR);
-;
+		try {
+			// On se connecte au serveur RMI
+			registre = LocateRegistry.getRegistry(Tools.PORT_RMI_SERVEUR);
 
-	
-		s2 = new SiteImpl();
-		s5 = new SiteImpl();
-		s6 = new SiteImpl();
-		s3 = new SiteImpl();
-		s4 = new SiteImpl();
-		
-		registre.rebind("s2", s2);
-		registre.rebind("s3", s3);
-		registre.rebind("s4", s4);
-		registre.rebind("s5", s5);
-		registre.rebind("s6", s6);
-		
-		s1 = ((SiteItf) registre.lookup("s1"));
-		s2 = ((SiteItf) registre.lookup("s2"));
-		s3 = ((SiteItf) registre.lookup("s3"));
-		s4 = ((SiteItf) registre.lookup("s4"));
-		s5 = ((SiteItf) registre.lookup("s5"));
-		s6 = ((SiteItf) registre.lookup("s6"));
+			// On envoi un message au site sélectionné
+			s1 = ((SiteItf) registre.lookup("s2"));
+			s1.transfererAuxFils("Bonjour".getBytes());
+			
+		} catch (AccessException e) {
+			System.out.println("Le stub demandé n'a pas pu être trouvé.");
+		} catch (RemoteException e) {
+			System.out
+					.println("Problème de communication avec le poste distant.");
+		} catch (NotBoundException e) {
+			System.out.println("Le stub demandé n'existe pas.");
+		}
 
-		s1.init(1, null);
-		s2.init(2, s1);
-		s5.init(5, s1);
-		s6.init(6, s5);
-		s3.init(3, s2);
-		s4.init(4, s2);
-
-		s1.ajouterFils(s2);
-		s1.ajouterFils(s5);
-		s2.ajouterFils(s3);
-		s2.ajouterFils(s4);
-		s5.ajouterFils(s6);
-
-		s1.transfererAuxFils("Bonjour".getBytes());
+		// On termine le programme pour qu'il ne tourne pas en background.
+		System.exit(0);
 	}
 
 }

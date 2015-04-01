@@ -4,16 +4,18 @@ import java.rmi.RemoteException;
 
 import entite.SiteImpl;
 
+/**
+ * Cette classe permet de tester le fonctionnement générique des sites
+ * sans prendre en compte l'implémentation RMI.
+ * 
+ * @author Jean-Serge Monbailly
+ */
 public class Main {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		
 		SiteImpl s1, s2, s3, s4, s5, s6;
-		s1 = s2 = s3 = s4 = s5 = s6 = null;
-
+		
+		// Création de tout les sites et ajout au serveur 
 		try {
 			s1 = new SiteImpl();
 			s2 = new SiteImpl();
@@ -36,8 +38,9 @@ public class Main {
 			s5.ajouterFils(s6);
 
 			s1.transfererAuxFils("Bonjour".getBytes());
-			
+
 		} catch (RemoteException e) {
+			System.out.println("Problème de connexion au poste distant.");
 			e.printStackTrace();
 		}
 	}
