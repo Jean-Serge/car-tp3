@@ -40,11 +40,12 @@ public class ServeurRMI {
 			s3.init(3, s2);
 			s4.init(4, s2);
 
-			s1.ajouterFils(s2);
-			s1.ajouterFils(s5);
-			s2.ajouterFils(s3);
-			s2.ajouterFils(s4);
-			s5.ajouterFils(s6);
+			s1.ajouterSite(s2);
+			s1.ajouterSite(s5);
+			s2.ajouterSite(s3);
+			s2.ajouterSite(s4);
+			s5.ajouterSite(s6);
+			s4.ajouterSite(s6);
 
 			registre.rebind("s1", s1);
 			registre.rebind("s2", s2);

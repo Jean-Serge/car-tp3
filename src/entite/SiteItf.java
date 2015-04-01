@@ -2,6 +2,7 @@ package entite;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * Interface représentant un Site dans cet exercice.
@@ -20,7 +21,11 @@ public interface SiteItf extends Remote{
 	
 	public void recevoir(byte[] donnees) throws RemoteException;
 	
-	public void ajouterFils(SiteItf fils) throws RemoteException;
+	public void ajouterSite(SiteItf fils) throws RemoteException;
 	
 	public int getId() throws RemoteException;
+
+	public List<SiteItf> getConnexions() throws RemoteException;
+
+	public boolean estVisitee() throws RemoteException;
 }

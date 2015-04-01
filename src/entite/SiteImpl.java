@@ -2,6 +2,8 @@ package entite;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Cette classe implémente un Site pour cet exercice.
@@ -21,10 +23,9 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	
 	private static final long serialVersionUID = 7151500616352256347L;
 
-	@SuppressWarnings("unused")
-	private SiteItf pere;
-	private SiteItf fils[];
+	private List<SiteItf> connectes;
 	private int id;
+	private boolean estVisite = false;
 	
 	public SiteImpl() throws RemoteException {
 		super();
@@ -38,9 +39,8 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 * @throws RemoteException 
 	 */
 	public void init(int id, SiteItf pere) throws RemoteException {
-		this.pere = pere;
 		this.id = id;
-		this.fils = new SiteImpl[0];
+		this.connectes = new ArrayList<SiteItf>();
 	}
 
 	/*
@@ -53,13 +53,13 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 * Transfère les données passées en paramètre à chacun des fils 
 	 * du site courant.
 	 * 
-	 * @param donnees le message à transmettre aux fils
+	 * @param donnees le message à transmettre aux sites connectés
 	 * @throws RemoteException
 	 */
 	@Override
 	public void transfererAuxFils(byte[] donnees) throws RemoteException{
 		System.out.println();
-		for(SiteItf s : fils){
+		for(SiteItf s : connectes){
 			new TransfertThread(s, donnees).start();
 		}
 	}
@@ -74,6 +74,9 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	@Override
 	public void recevoir(byte[] donnees) throws RemoteException {
 		System.out.println("Le site n° " + id + " a reçu le message \n\""+ new String(donnees) + "\"");
+		synchronized(this){
+			this.estVisite = true;
+		}
 		this.transfererAuxFils(donnees);
 	}
 
@@ -88,21 +91,26 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	}
 
 	/**
-	 * Permet d'ajouter une Site au tableau de fils du site courant.
-	 * Pour cela, cette fonction réalloue le tableau de fils pour l'augmenter d'une case
-	 * (contenant le nouveau fils).
+	 * Permet de connecter un site au site courant.
 	 * 
-	 * @param fils le fils à ajouter au site courant
+	 * @param site le site à ajouter au site courant
 	 */
 	@Override
-	public void ajouterFils(SiteItf fils) throws RemoteException {
-		SiteItf tmp[] = new SiteItf[this.fils.length + 1];
-		
-		for(int i = 0 ; i < this.fils.length ; i++)
-			tmp[i] = this.fils[i];
-		tmp[tmp.length -1] = fils;
-		
-		this.fils = tmp;
+	public void ajouterSite(SiteItf site) throws RemoteException {
+		if(!site.getConnexions().contains(this))
+			site.getConnexions().add(this);
+		if(!this.connectes.contains(site))
+			this.connectes.add(site);
+	}
+
+	@Override
+	public List<SiteItf> getConnexions() throws RemoteException {
+		return this.connectes;
+	}
+	
+	@Override
+	public boolean estVisitee(){
+		return this.estVisite;
 	}
 
 }
