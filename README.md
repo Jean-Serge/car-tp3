@@ -3,7 +3,8 @@
 
 Implémentation avec RMI d'une application de transfert de données.
 
-étape 1 
+
+Étape 1 
 =======
 Implémentation d'un programme mettant en place les différents éléments 
 (pas encore RMI) permettant d'effectuer le travail voulu.
@@ -19,7 +20,8 @@ src/main
 --------
 + Main		: (main) permet de tester le bon fonctionnement des classes ci-dessus 
 
-étape 2
+
+Étape 2
 =======
 Écriture d'un client et d'un serveur RMI pour y associer les objets à manipuler
 
@@ -35,6 +37,17 @@ src/rmi
 src/utils
 ---------
 + Tools		: propose des champs statiques aux autres classes 
+
+
+Étape 3
+=======
+Gestion de transfert de données en parallèle.
+Lorsqu'un site enverra des données à ses fils, chaque envoi se fera dans un Thread différent.
+
+src/entite
+----------
++ TransfertThread 	:	class (extends Thread) permettant de lancer l'envoi des données dans un Thread 
+
 
 
 TODO
