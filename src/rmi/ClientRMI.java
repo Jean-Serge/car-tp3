@@ -22,7 +22,7 @@ public class ClientRMI {
 	 * résultat.
 	 **/
 	public static void main(String[] args) {
-		SiteItf s1;
+		SiteItf s;
 		Registry registre;
 
 		try {
@@ -30,9 +30,11 @@ public class ClientRMI {
 			registre = LocateRegistry.getRegistry(Tools.PORT_RMI_SERVEUR);
 
 			// On envoi un message au site sélectionné
-			s1 = ((SiteItf) registre.lookup("s2"));
-			s1.transfererAuxFils("Bonjour".getBytes());
+			s = ((SiteItf) registre.lookup("s2"));
+			s.recevoir("Bonjour".getBytes());
 			
+			s = ((SiteItf) registre.lookup("s6"));
+			s.recevoir("Aurevoir".getBytes());
 		} catch (AccessException e) {
 			System.out.println("Le stub demandé n'a pas pu être trouvé.");
 		} catch (RemoteException e) {

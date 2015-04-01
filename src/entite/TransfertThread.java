@@ -6,7 +6,8 @@ public class TransfertThread extends Thread {
 
 	/*
 	 * ==========================================================================
-	 * Constructeurs et attributs ================================
+	 * Constructeurs et attributs 
+	 * ================================
 	 */
 	private SiteItf cible;
 	private byte[] donnees;
@@ -18,17 +19,15 @@ public class TransfertThread extends Thread {
 
 	/*
 	 * ==========================================================================
-	 * Fonctions surchargées ================================
+	 * Fonctions surchargées 
+	 * ================================
 	 */
 	/**
 	 * Le Thread doit permettre d'envoyer un message à une cible spécifié.
 	 */
 	public void run() {
 		try {
-			if (!this.cible.estVisitee()) {
-				System.out.println("Transfert de données à " + cible.getId());
-				this.cible.recevoir(donnees);
-			}
+			this.cible.recevoir(donnees);
 		} catch (RemoteException e) {
 			System.out
 					.println("Problème lors de la communication avec la cible.");

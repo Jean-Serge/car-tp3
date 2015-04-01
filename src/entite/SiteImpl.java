@@ -58,9 +58,22 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 */
 	@Override
 	public void transfererAuxFils(byte[] donnees) throws RemoteException{
-		System.out.println();
+		List<TransfertThread> threads = new ArrayList<TransfertThread>();
+
 		for(SiteItf s : connectes){
-			new TransfertThread(s, donnees).start();
+			threads.add(new TransfertThread(s, donnees));
+			threads.get(threads.size()-1).start();
+		}
+		
+		for(Thread t : threads){
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				System.out.println("Le thread a été interrompu.");
+			}
+		}
+		synchronized(this){
+			this.estVisite = false;
 		}
 	}
 
@@ -73,6 +86,8 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 */
 	@Override
 	public void recevoir(byte[] donnees) throws RemoteException {
+		if(this.estVisite)
+			return;
 		System.out.println("Le site n° " + id + " a reçu le message \n\""+ new String(donnees) + "\"");
 		synchronized(this){
 			this.estVisite = true;
@@ -110,7 +125,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	
 	@Override
 	public boolean estVisitee(){
-		return this.estVisite;
+			return this.estVisite;
 	}
 
 }
