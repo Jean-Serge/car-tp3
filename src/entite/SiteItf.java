@@ -26,6 +26,4 @@ public interface SiteItf extends Remote{
 	public int getId() throws RemoteException;
 
 	public List<SiteItf> getVoisins() throws RemoteException;
-
-//	public boolean estVisitee() throws RemoteException;
 }

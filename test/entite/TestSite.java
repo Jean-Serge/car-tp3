@@ -1,8 +1,6 @@
 package entite;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.rmi.RemoteException;
 
@@ -11,16 +9,13 @@ import org.junit.Test;
 
 public class TestSite {
 
-	private SiteItf s1, s2, s3, s4, s5, s6;
+	private SiteItf s1, s2, s6;
 
 	@Before
 	public void setUp() throws RemoteException {
 		s1 = new SiteImpl();
 		s2 = new SiteImpl();
-		s5 = new SiteImpl();
 		s6 = new SiteImpl();
-		s3 = new SiteImpl();
-		s4 = new SiteImpl();
 	}
 	
 	/**

@@ -33,8 +33,6 @@ public class ClientRMI {
 			s = ((SiteItf) registre.lookup("s2"));
 			s.recevoir("Bonjour".getBytes());
 			
-			s = ((SiteItf) registre.lookup("s6"));
-			s.recevoir("Aurevoir".getBytes());
 		} catch (AccessException e) {
 			System.out.println("Le stub demandé n'a pas pu être trouvé.");
 		} catch (RemoteException e) {
