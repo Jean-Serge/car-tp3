@@ -30,7 +30,7 @@ public class ClientRMI {
 			registre = LocateRegistry.getRegistry(Tools.PORT_RMI_SERVEUR);
 
 			// On envoi un message au site sélectionné
-			s = ((SiteItf) registre.lookup("s2"));
+			s = ((SiteItf) registre.lookup("s1"));
 			s.recevoir("Bonjour".getBytes());
 			
 		} catch (AccessException e) {
