@@ -3,6 +3,18 @@
 
 Implémentation avec RMI d'une application de transfert de données.
 
+Notes
+=====
+Ce programme permet de manipuler les noeuds d'un serveur RMI et de leur faire se transmettre des
+messages.
+Les éléments du serveur RMI sont connectés sous forme de graphe.
+
+Pour exécuter :
+	- java -jar RMIServer.jar (pour lancer le serveur créant les noeuds)
+	- java -jar RMIClient.jar <message> [<stub>] (pour lancer le client envoyant un message à un élément du serveur)
+
+Le stub par défaut est s1.
+Le serveur ne peut envoyer qu'un message, il y a un problème de réinitialisation du booléen.
 
 Étape 1 
 =======
@@ -48,6 +60,10 @@ src/entite
 ----------
 + TransfertThread 	:	class (extends Thread) permettant de lancer l'envoi des données dans un Thread 
 
+Étape 4
+=======
+Ajout de la gestion de graphe, il est désormais possible de considérer un graphe au lieu d'un arbre,
+ajout d'un booléen synchronisé pour éviter les boucles de transmission de données.
 
 
 TODO
