@@ -38,14 +38,9 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 * @param fils les files du Site courant
 	 * @throws RemoteException 
 	 */
-	public void init(int id, SiteItf pere) throws RemoteException {
+	public void init(int id) throws RemoteException {
 		this.id = id;
 		this.voisins = new ArrayList<SiteItf>();
-		
-		if(pere != null){
-			this.voisins.add(pere);
-			pere.getVoisins().add(this);
-		}
 	}
 
 	/*

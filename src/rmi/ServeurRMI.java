@@ -33,12 +33,12 @@ public class ServeurRMI {
 			s3 = new SiteImpl();
 			s4 = new SiteImpl();
 
-			s1.init(1, null);
-			s2.init(2, s1);
-			s5.init(5, s1);
-			s6.init(6, s5);
-			s3.init(3, s2);
-			s4.init(4, s2);
+			s1.init(1);
+			s2.init(2);
+			s5.init(5);
+			s6.init(6);
+			s3.init(3);
+			s4.init(4);
 
 			s1.ajouterSite(s2);
 			s1.ajouterSite(s5);

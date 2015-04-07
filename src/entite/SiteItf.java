@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface SiteItf extends Remote{
 	
-	public void init(int id, SiteItf pere) throws RemoteException;
+	public void init(int id) throws RemoteException;
 	
 	public void transfererAuxFils(byte[] donnees) throws RemoteException;
 	
