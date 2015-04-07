@@ -23,7 +23,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	
 	private static final long serialVersionUID = 7151500616352256347L;
 
-	private List<SiteItf> connectes;
+	private List<SiteItf> voisins;
 	private int id;
 	private boolean estVisite = false;
 	
@@ -40,7 +40,12 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 */
 	public void init(int id, SiteItf pere) throws RemoteException {
 		this.id = id;
-		this.connectes = new ArrayList<SiteItf>();
+		this.voisins = new ArrayList<SiteItf>();
+		
+		if(pere != null){
+			this.voisins.add(pere);
+			pere.getVoisins().add(this);
+		}
 	}
 
 	/*
@@ -60,7 +65,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	public void transfererAuxFils(byte[] donnees) throws RemoteException{
 		List<TransfertThread> threads = new ArrayList<TransfertThread>();
 
-		for(SiteItf s : connectes){
+		for(SiteItf s : voisins){
 			threads.add(new TransfertThread(s, donnees));
 			threads.get(threads.size()-1).start();
 		}
@@ -112,20 +117,20 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf{
 	 */
 	@Override
 	public void ajouterSite(SiteItf site) throws RemoteException {
-		if(!site.getConnexions().contains(this))
-			site.getConnexions().add(this);
-		if(!this.connectes.contains(site))
-			this.connectes.add(site);
+		if(!site.getVoisins().contains(this))
+			site.getVoisins().add(this);
+		if(!this.voisins.contains(site))
+			this.voisins.add(site);
 	}
 
 	@Override
-	public List<SiteItf> getConnexions() throws RemoteException {
-		return this.connectes;
+	public List<SiteItf> getVoisins() throws RemoteException {
+		return this.voisins;
 	}
 	
-	@Override
-	public boolean estVisitee(){
-			return this.estVisite;
-	}
+//	@Override
+//	public boolean estVisitee(){
+//			return this.estVisite;
+//	}
 
 }
