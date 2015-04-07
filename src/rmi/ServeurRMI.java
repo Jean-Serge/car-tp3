@@ -9,18 +9,16 @@ import entite.SiteItf;
 import utils.Tools;
 
 /**
- * Cette classe permet de lancer un serveur RMI et d'y 
- * ajouter des sites.
+ * Cette classe permet de lancer un serveur RMI et d'y ajouter des sites.
  * 
  * @author Jean-Serge Monbailly
  *
  */
 public class ServeurRMI {
+	private Registry registre;
+	private SiteItf s1, s2, s3, s4, s5, s6;
 
-	public static void main(String[] args){
-		Registry registre;
-		SiteItf s1, s2, s3, s4, s5, s6;
-
+	public ServeurRMI() {
 		try {
 			// Création du serveur RMI
 			registre = LocateRegistry.createRegistry(Tools.PORT_RMI_SERVEUR);
@@ -59,5 +57,15 @@ public class ServeurRMI {
 			System.out
 					.println("Problème de communication avec le poste distant.");
 		}
+	}
+
+	public Registry registre() {
+		return this.registre;
+	}
+
+	public static void main(String[] args) {
+		// Registry r =
+		new ServeurRMI();
+
 	}
 }
