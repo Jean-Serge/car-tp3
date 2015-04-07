@@ -65,15 +65,14 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf {
 			threads.add(new TransfertThread(s, donnees));
 			threads.get(threads.size() - 1).start();
 		}
-
-		for (Thread t : threads) {
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				System.out.println("Le thread a été interrompu.");
-			}
-		}
-		this.estVisite = false;
+//
+//		for (Thread t : threads) {
+//			try {
+//				t.join();
+//			} catch (InterruptedException e) {
+//				System.out.println("Le thread a été interrompu.");
+//			}
+//		}
 	}
 
 	/**

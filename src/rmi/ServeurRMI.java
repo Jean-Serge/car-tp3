@@ -43,17 +43,17 @@ public class ServeurRMI {
 			s1.ajouterSite(s2);
 			s1.ajouterSite(s5);
 			s2.ajouterSite(s5);
-//			s2.ajouterSite(s3);
-//			s2.ajouterSite(s4);
-//			s5.ajouterSite(s6);
-//			s4.ajouterSite(s6);
+			s2.ajouterSite(s3);
+			s2.ajouterSite(s4);
+			s5.ajouterSite(s6);
+			s4.ajouterSite(s6);
 
 			registre.rebind("s1", s1);
 			registre.rebind("s2", s2);
-//			registre.rebind("s3", s3);
-//			registre.rebind("s4", s4);
-//			registre.rebind("s5", s5);
-//			registre.rebind("s6", s6);
+			registre.rebind("s3", s3);
+			registre.rebind("s4", s4);
+			registre.rebind("s5", s5);
+			registre.rebind("s6", s6);
 
 		} catch (RemoteException e) {
 			System.out
