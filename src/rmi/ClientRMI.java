@@ -24,15 +24,25 @@ public class ClientRMI {
 	public static void main(String[] args) {
 		SiteItf s;
 		Registry registre;
+		String stub = "s1", message;
+
+		if (args.length == 0){
+			System.out.println("Veuillez indiquer le message à transmettre");
+			System.exit(1);
+		}
+		message = args[0];
+		
+		if (args.length > 1)
+			stub = args[1];
 
 		try {
 			// On se connecte au serveur RMI
 			registre = LocateRegistry.getRegistry(Tools.PORT_RMI_SERVEUR);
 
 			// On envoi un message au site sélectionné
-			s = ((SiteItf) registre.lookup("s1"));
-			s.recevoir("Bonjour".getBytes());
-			
+			s = ((SiteItf) registre.lookup(stub));
+			s.recevoir(message.getBytes());
+
 		} catch (AccessException e) {
 			System.out.println("Le stub demandé n'a pas pu être trouvé.");
 		} catch (RemoteException e) {
